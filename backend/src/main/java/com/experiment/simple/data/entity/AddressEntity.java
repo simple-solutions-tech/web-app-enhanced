@@ -1,7 +1,8 @@
-package com.example.demo.entity;
+package com.experiment.simple.data.entity;
 
 import java.time.ZonedDateTime;
 
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
@@ -11,11 +12,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Data;
 
-@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Builder
 @Table(name = "address")
 public class AddressEntity {
@@ -45,6 +47,4 @@ public class AddressEntity {
 
   @Column(name = "zip_ext")
   private String zipCodeExtension;
-
-  @CreationTimestamp private ZonedDateTime createdAt;
 }

@@ -1,11 +1,11 @@
-package com.example.demo.repository;
+package com.experiment.simple.data.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.DepartmentEntity;
+import com.experiment.simple.data.entity.DepartmentEntity;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<DepartmentEntity, Long> {

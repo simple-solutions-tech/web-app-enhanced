@@ -1,12 +1,16 @@
-CREATE TABLE department (
-  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+CREATE SCHEMA IF NOT EXISTS company_schema;
+
+SET search_path TO company_schema;
+
+CREATE TABLE IF NOT EXISTS department (
+  id BIGSERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL UNIQUE,
   description VARCHAR(255),
   created_at TIMESTAMP NOT NULL
 );
 
-CREATE TABLE address (
-  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS address (
+  id BIGSERIAL PRIMARY KEY,
   street_address_1 VARCHAR(255) NOT NULL,
   street_address_2 VARCHAR(255),
   city VARCHAR(255) NOT NULL,
@@ -15,8 +19,8 @@ CREATE TABLE address (
   zip_ext VARCHAR(4)
 );
 
-CREATE TABLE employee (
-  id BIGINT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS employee (
+  id BIGSERIAL PRIMARY KEY,
   first_name VARCHAR(255) NOT NULL,
   middle_name VARCHAR(255),
   last_name VARCHAR(255) NOT NULL,

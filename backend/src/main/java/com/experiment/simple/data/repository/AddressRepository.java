@@ -1,9 +1,9 @@
-package com.example.demo.repository;
+package com.experiment.simple.data.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.example.demo.entity.AddressEntity;
+import com.experiment.simple.data.entity.AddressEntity;
 
 @Repository
 public interface AddressRepository extends JpaRepository<AddressEntity, Long> {

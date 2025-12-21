@@ -1,7 +1,8 @@
-package com.example.demo.entity;
+package com.experiment.simple.data.entity;
 
 import java.time.ZonedDateTime;
 
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
@@ -15,12 +16,12 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Data;
 
-@Data
 @Entity
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "employee")
 public class EmployeeEntity {
 
@@ -43,11 +44,11 @@ public class EmployeeEntity {
   @Column(name = "salary")
   private Integer salary;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @OneToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "address_id")
   private AddressEntity address;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "department_id", nullable = false)
   private DepartmentEntity department;
 

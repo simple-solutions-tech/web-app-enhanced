@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package com.experiment.simple.web.controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

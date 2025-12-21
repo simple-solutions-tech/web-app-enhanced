@@ -1,9 +1,10 @@
-package com.example.demo.entity;
+package com.experiment.simple.data.entity;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.CascadeType;
@@ -15,11 +16,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Data;
 
-@Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
 @Builder
 @Table(name = "department")
 public class DepartmentEntity {
@@ -35,7 +37,6 @@ public class DepartmentEntity {
   @Column(name = "description")
   private String description;
 
-  @Builder.Default
   @OneToMany(mappedBy = "department", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<EmployeeEntity> employees = new ArrayList<>();
 
