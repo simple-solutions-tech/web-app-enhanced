@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -16,6 +17,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @NoArgsConstructor
@@ -40,11 +42,11 @@ public class EmployeeEntity {
   @Column(name = "last_name")
   private String lastName;
 
-  @NotBlank(message = "Field 'salary' is required.")
+  @NotNull(message = "Field 'salary' is required.")
   @Column(name = "salary")
   private Integer salary;
 
-  @OneToOne(fetch = FetchType.EAGER)
+  @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
   @JoinColumn(name = "address_id")
   private AddressEntity address;
 
