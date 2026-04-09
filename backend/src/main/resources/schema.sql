@@ -1,5 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS company_schema;
 
+ALTER TABLE IF EXISTS company_schema.employee ADD COLUMN IF NOT EXISTS photo_url VARCHAR(500);
+
 SET search_path TO company_schema;
 
 CREATE TABLE IF NOT EXISTS department (

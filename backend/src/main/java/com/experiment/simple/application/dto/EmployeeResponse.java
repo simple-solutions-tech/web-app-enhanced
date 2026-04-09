@@ -11,5 +11,6 @@ public class EmployeeResponse {
   private Integer salary;
   private Address address;
   private DepartmentResponse department;
+  private String photoUrl;
 
 }

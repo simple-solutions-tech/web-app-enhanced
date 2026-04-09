@@ -13,9 +13,13 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - SPRING_DATA_MONGODB_URI=mongodb://mongo:27017/audit_logs_db
+      - AWS_S3_BUCKET=employee-photos
+      - AWS_S3_REGION=us-east-1
+      - AWS_S3_ENDPOINT=http://localstack:4566
     depends_on:
       - postgres
       - mongo
+      - localstack
     networks:
       - app-network
 
@@ -51,6 +55,16 @@ services:
       - "27017:27017"
     volumes:
       - mongo-data:/data/db
+    networks:
+      - app-network
+
+  localstack:
+    image: localstack/localstack:3
+    container_name: localstack
+    ports:
+      - "4566:4566"
+    environment:
+      - SERVICES=s3
     networks:
       - app-network
 
