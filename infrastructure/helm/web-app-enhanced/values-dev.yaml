@@ -1,0 +1,32 @@
+backend:
+  replicaCount: 1
+  image:
+    repository: ""  # Set by CI: <account>.dkr.ecr.us-east-1.amazonaws.com/web-app-enhanced-dev-backend
+    tag: "latest"
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: ""  # Set by CI from terraform output backend_irsa_role_arn
+  env:
+    springDatasourceUrl: "jdbc:postgresql://postgres:5432/company_db"
+    webAppFrontendUrl: ""  # Set by CI from ingress hostname
+    s3Bucket: "web-app-enhanced-dev-employee-photos"
+    s3Region: "us-east-1"
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+frontend:
+  replicaCount: 1
+  image:
+    repository: ""  # Set by CI: <account>.dkr.ecr.us-east-1.amazonaws.com/web-app-enhanced-dev-frontend
+    tag: "latest"
+  env:
+    reactAppApiUrl: ""  # Set by CI from ingress hostname
+
+ingress:
+  enabled: true
+  host: ""  # Set by CI from ALB DNS name after first deploy
