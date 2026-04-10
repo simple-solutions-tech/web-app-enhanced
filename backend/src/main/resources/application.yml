@@ -25,3 +25,14 @@ spring:
   data:
     mongodb:
       uri: mongodb://localhost:27017/audit_logs_db
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+aws:
+  s3:
+    bucket: ${AWS_S3_BUCKET:employee-photos}
+    region: ${AWS_S3_REGION:us-east-1}
+    endpoint: ${AWS_S3_ENDPOINT:}

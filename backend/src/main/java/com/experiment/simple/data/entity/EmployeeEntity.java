@@ -54,5 +54,8 @@ public class EmployeeEntity {
   @JoinColumn(name = "department_id", nullable = false)
   private DepartmentEntity department;
 
+  @Column(name = "photo_url")
+  private String photoUrl;
+
   @CreationTimestamp private ZonedDateTime createdAt;
 }
