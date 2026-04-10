@@ -1,0 +1,41 @@
+backend:
+  replicaCount: 2
+  image:
+    repository: ""
+    tag: ""  # Always pinned to a specific SHA in prod — never "latest"
+    pullPolicy: Always
+  serviceAccount:
+    annotations:
+      eks.amazonaws.com/role-arn: ""
+  env:
+    springDatasourceUrl: ""  # RDS endpoint
+    webAppFrontendUrl: ""    # Production domain
+    s3Bucket: "web-app-enhanced-prod-employee-photos"
+    s3Region: "us-east-1"
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+    limits:
+      memory: "1Gi"
+      cpu: "1000m"
+
+frontend:
+  replicaCount: 2
+  image:
+    repository: ""
+    tag: ""
+    pullPolicy: Always
+  env:
+    reactAppApiUrl: ""
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "200m"
+
+ingress:
+  enabled: true
+  host: ""  # Production domain

@@ -1,0 +1,48 @@
+backend:
+  replicaCount: 1
+  image:
+    repository: ""
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  serviceAccount:
+    # Annotated with the IRSA role ARN so the pod can access S3 without static keys
+    annotations: {}
+  env:
+    springDatasourceUrl: ""
+    webAppFrontendUrl: ""
+    s3Bucket: ""
+    s3Region: "us-east-1"
+  # Sensitive values (DB password, Mongo URI) are read from a Kubernetes secret
+  # named "<release>-backend-secret", expected to exist before deployment.
+  # Keys: SPRING_DATASOURCE_USERNAME, SPRING_DATASOURCE_PASSWORD, SPRING_DATA_MONGODB_URI
+  resources:
+    requests:
+      memory: "256Mi"
+      cpu: "250m"
+    limits:
+      memory: "512Mi"
+      cpu: "500m"
+
+frontend:
+  replicaCount: 1
+  image:
+    repository: ""
+    tag: "latest"
+    pullPolicy: IfNotPresent
+  env:
+    reactAppApiUrl: ""
+  resources:
+    requests:
+      memory: "128Mi"
+      cpu: "100m"
+    limits:
+      memory: "256Mi"
+      cpu: "200m"
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+  host: ""

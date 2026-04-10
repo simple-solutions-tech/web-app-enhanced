@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "web-app-enhanced.fullname" . }}-backend
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "web-app-enhanced.labels" . | nindent 4 }}
+spec:
+  type: ClusterIP
+  selector:
+    {{- include "web-app-enhanced.backend.selectorLabels" . | nindent 4 }}
+  ports:
+    - port: 8080
+      targetPort: 8080
