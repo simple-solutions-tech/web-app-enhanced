@@ -14,11 +14,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.mockito.Mockito.never;
 
 @WebMvcTest(EmployeeController.class)
 class EmployeeControllerTest {
@@ -83,5 +85,50 @@ class EmployeeControllerTest {
             .andExpect(jsonPath("$.firstName").value("Jane"))
             .andExpect(jsonPath("$.lastName").value("Smith"))
             .andExpect(jsonPath("$.salary").value(60000));
+    }
+
+    @Test
+    void addEmployee_withMissingRequiredFields_returns400() throws Exception {
+        mockMvc.perform(post("/api/employee")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{}"))
+            .andExpect(status().isBadRequest());
+
+        verify(employeeService, never()).addEmployee(any());
+    }
+
+    @Test
+    void addEmployee_withMissingDepartmentId_returns400() throws Exception {
+        mockMvc.perform(post("/api/employee")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                        "firstName": "Jane",
+                        "lastName": "Smith",
+                        "salary": 60000
+                    }
+                    """))
+            .andExpect(status().isBadRequest());
+
+        verify(employeeService, never()).addEmployee(any());
+    }
+
+    @Test
+    void addEmployee_withNonexistentDepartment_returns400() throws Exception {
+        when(employeeService.addEmployee(any()))
+            .thenThrow(new IllegalArgumentException("Department not found: 999"));
+
+        mockMvc.perform(post("/api/employee")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("""
+                    {
+                        "firstName": "Jane",
+                        "lastName": "Smith",
+                        "salary": 60000,
+                        "departmentId": 999
+                    }
+                    """))
+            .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("$.error").value("Department not found: 999"));
     }
 }
