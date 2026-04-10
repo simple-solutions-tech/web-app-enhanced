@@ -4,6 +4,7 @@ import com.experiment.simple.application.dto.AddEmployeeRequest;
 import com.experiment.simple.application.dto.EmployeeResponse;
 import com.experiment.simple.application.mapper.EmployeeMapper;
 import com.experiment.simple.domain.Employee;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +29,7 @@ public class EmployeeController {
   }
 
   @PostMapping
-  public ResponseEntity<EmployeeResponse> addEmployee(@RequestBody AddEmployeeRequest request) {
+  public ResponseEntity<EmployeeResponse> addEmployee(@Valid @RequestBody AddEmployeeRequest request) {
     return ResponseEntity.ok(mapper.toResponse(employee.addEmployee(request)));
   }
 
