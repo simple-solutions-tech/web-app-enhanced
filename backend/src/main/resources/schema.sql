@@ -32,4 +32,18 @@ CREATE TABLE IF NOT EXISTS employee (
   created_at TIMESTAMP NOT NULL,
   FOREIGN KEY (address_id) REFERENCES address(id),
   FOREIGN KEY (department_id) REFERENCES department(id)
+    -- ... Many other columns
+);
+
+CREATE TABLE sales_region (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,  
+    created_at TIMESTAMP NOT NULL
+);
+
+CREATE TABLE employee_sales_region (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    FOREIGN KEY (employee_id) REFERENCES employee(id),
+    FOREIGN KEY (sales_region_id) REFERENCES sales_region(id)
 );
